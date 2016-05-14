@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -52,46 +52,46 @@
      <Compile Include="Assets\Scripts\WebCamera.cs" />
      <Compile Include="Assets\Scripts\WebcamCaptureCV.cs" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="Antlr3.Runtime">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/Antlr3.Runtime.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/Antlr3.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Emgu.CV.UI">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/Emgu.CV.UI.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/Emgu.CV.UI.dll</HintPath>
  </Reference>
  <Reference Include="Emgu.CV.UI.GL">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/Emgu.CV.UI.GL.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/Emgu.CV.UI.GL.dll</HintPath>
  </Reference>
  <Reference Include="Emgu.CV.World">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/Emgu.CV.World.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/Emgu.CV.World.dll</HintPath>
  </Reference>
  <Reference Include="Iesi.Collections">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/Iesi.Collections.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/Iesi.Collections.dll</HintPath>
  </Reference>
  <Reference Include="log4net">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/log4net.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/log4net.dll</HintPath>
  </Reference>
  <Reference Include="NHibernate.ByteCode.LinFu">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/NHibernate.ByteCode.LinFu.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/NHibernate.ByteCode.LinFu.dll</HintPath>
  </Reference>
  <Reference Include="NHibernate">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/NHibernate.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/NHibernate.dll</HintPath>
  </Reference>
  <Reference Include="OpenTK">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/OpenTK.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/OpenTK.dll</HintPath>
  </Reference>
  <Reference Include="OpenTK.GLControl">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/OpenTK.GLControl.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/OpenTK.GLControl.dll</HintPath>
  </Reference>
  <Reference Include="System.Drawing">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/System.Drawing.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/System.Drawing.dll</HintPath>
  </Reference>
  <Reference Include="ZedGraph">
- <HintPath>D:/Documentos/AugmentedReality/Assets/Plugins/ZedGraph.dll</HintPath>
+ <HintPath>D:/Documents/AugmentedReality/Assets/Plugins/ZedGraph.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
