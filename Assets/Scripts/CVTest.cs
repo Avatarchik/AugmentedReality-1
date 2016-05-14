@@ -42,7 +42,8 @@ public class CVTest : MonoBehaviour {
 	Capture _cameraCapture;
 	//
 	public Material material;
-
+    //
+    public WebCamera WC;
 	// Use this for initialization
 	void Start () {
 		im2 = im;
@@ -80,8 +81,9 @@ public class CVTest : MonoBehaviour {
 	[ContextMenu ("Do3")]
 	public void Do3(Mat frame){
 		long matchTime;
-		Bitmap bitmap = new Bitmap(WebCamera.Texture2Image());
-		frame = new Mat()
+		Bitmap bitmap = new Bitmap(WC.Texture2Image());
+
+        frame = CvInvoke.CvArrToMat(bitmap.GetHbitmap());
 		using(Mat modelImage = CvInvoke.Imread(modelImageName,LoadImageType.Grayscale))
 		{
 			PointF[] result = DrawMatches.Draw(modelImage,frame,out matchTime);
