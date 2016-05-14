@@ -12,6 +12,9 @@ using Emgu.CV.Features2D;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using UnityEngine;
+using Emgu.CV.Cvb;
+
+
 #if !__IOS__
 using Emgu.CV.Cuda;
 #endif
@@ -168,5 +171,38 @@ public static class DrawMatches
 
      }
   }
+	public static Mat getPoints(Mat modelImage, Mat observedImage, out long matchTime)
+	{
+		Mat homography;
+		VectorOfKeyPoint modelKeyPoints;
+		VectorOfKeyPoint observedKeyPoints;
+		using (VectorOfVectorOfDMatch matches = new VectorOfVectorOfDMatch())
+		{
+			Mat mask;
+			FindMatch(modelImage, observedImage, out matchTime, out modelKeyPoints, out observedKeyPoints, matches,out mask, out homography);
+			if (homography != null)
+			{
+				return homography;
+			}
+
+			return null;
+
+		}
+	}
+	public static PointF[] GetPerspectiveOfHomography(Mat homo, RectTransform rectTransform){
+		Size s = new Size((int)rectTransform.rect.width,(int)rectTransform.rect.height);
+		Rectangle rect = new Rectangle(Point.Empty, s);
+
+		PointF[] pts = new PointF[]
+		{
+			new PointF(rect.Left, rect.Bottom),
+			new PointF(rect.Right, rect.Bottom),
+			new PointF(rect.Right, rect.Top),
+			new PointF(rect.Left, rect.Top)
+		};
+		pts = CvInvoke.PerspectiveTransform(pts, homo);
+
+		return pts;
+	}
 }
 

@@ -101,7 +101,8 @@ public class CVTest : MonoBehaviour {
 
 	}
 	Vector3 SetPosition(PointF pos){
-		//im3.rectTransform.rect.x
+		
+		//return new Vector3( pos.X,invertY(pos.Y),0f);
 		return new Vector3( im3.rectTransform.position.x - (im3.rectTransform.rect.width*0.5f) + pos.X,im3.rectTransform.position.y - (im3.rectTransform.rect.height*0.5f) + invertY(pos.Y),0f);
 	}
 	float invertY(float y){
