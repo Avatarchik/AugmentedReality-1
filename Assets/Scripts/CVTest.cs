@@ -49,7 +49,7 @@ public class CVTest : MonoBehaviour {
 		im2 = im;
 		modelImageName = Application.dataPath+"/Resources"+"/"+modelImageName+".png";
 		observedImageName = Application.dataPath+"/Resources"+"/"+observedImageName+".png";
-		StartCoroutine(CameraCapture());
+		//StartCoroutine(CameraCapture());
 
 
 	}
@@ -61,15 +61,13 @@ public class CVTest : MonoBehaviour {
 	[ContextMenu ("Do2")]
 	public void Do2(){
 		long matchTime;
-
-
 		using(Mat modelImage = CvInvoke.Imread(modelImageName,LoadImageType.Grayscale))
 		using(Mat observedImage = CvInvoke.Imread(observedImageName,LoadImageType.Grayscale))
 		{
 			PointF[] result = DrawMatches.Draw(modelImage,observedImage,out matchTime);
-//			foreach(PointF p in result){
-//				Debug.Log(p.X + "," + p.Y);	
-//			}
+			foreach(PointF p in result){
+				Debug.Log(p.X + "," + p.Y);	
+			}
 			for(int i = 0; i< result.Length; i++){
 
 				Corners[i].rectTransform.position = SetPosition(result[i]);
@@ -79,27 +77,28 @@ public class CVTest : MonoBehaviour {
 		}
 	}
 	[ContextMenu ("Do3")]
-	public void Do3(Mat frame){
+	public void Do3(){
+	//public void Do3(Mat frame){
 		long matchTime;
-		Bitmap bitmap = new Bitmap(WC.Texture2Image());
+		if(WC.Texture2Image() != null){
+			Bitmap bitmap = new Bitmap(WC.Texture2Image());
+			Mat frame = new Mat();
+			frame = CvInvoke.CvArrToMat(bitmap.GetHbitmap());
+			using(Mat modelImage = CvInvoke.Imread(modelImageName,LoadImageType.Grayscale))
+			{
+				PointF[] result = DrawMatches.Draw(modelImage,frame,out matchTime);
+				if(result != null){
+					for(int i = 0; i< result.Length; i++){
 
-        frame = CvInvoke.CvArrToMat(bitmap.GetHbitmap());
-		using(Mat modelImage = CvInvoke.Imread(modelImageName,LoadImageType.Grayscale))
-		{
-			PointF[] result = DrawMatches.Draw(modelImage,frame,out matchTime);
-			//			foreach(PointF p in result){
-			//				Debug.Log(p.X + "," + p.Y);	
-			//			}
-			if(result != null){
-				for(int i = 0; i< result.Length; i++){
+						Corners[i].rectTransform.position = SetPosition(result[i]);
 
-					Corners[i].rectTransform.position = SetPosition(result[i]);
-
-				}	
-			}
+					}	
+				}
 
 
+			}	
 		}
+
 	}
 	Vector3 SetPosition(PointF pos){
 		//im3.rectTransform.rect.x
@@ -111,25 +110,9 @@ public class CVTest : MonoBehaviour {
 		//return im2.rectTransform.rect.height-y+CanvasRect.position.y;
 	}
 	IEnumerator CameraCapture(){
-		try{
-			_cameraCapture = new Capture();
-
-		}catch{
-			Debug.LogError("Error!");
-		}
-
 		while(Capturing){
-			
-			Mat frame = _cameraCapture.QueryFrame();
-
-			if(frame != null){
-				Do3(frame);	
-			}else{
-				Debug.Log("is null");
-			}
-
+			Do3();	
 			yield return null;
-
 		}
 		yield return null;
 	}
@@ -146,69 +129,6 @@ public class CVTest : MonoBehaviour {
 		picture.Save(Application.dataPath +"/"+"box2.png");
 
 	}
-//	public static Image<Bgr, Byte> Draw(Image<Gray, Byte> modelImage, Image<Gray, byte> observedImage)
-//	{
-//		HomographyMatrix homography = null;
-//
-//		FastDetector fastCPU = new FastDetector(10, true);
-//		VectorOfKeyPoint modelKeyPoints;
-//		VectorOfKeyPoint observedKeyPoints;
-//		Matrix<int> indices;
-//
-//		BriefDescriptorExtractor descriptor = new BriefDescriptorExtractor();
-//
-//		Matrix<byte> mask;
-//		int k = 2;
-//		double uniquenessThreshold = 0.8;
-//
-//		//extract features from the object image
-//		modelKeyPoints = fastCPU.DetectKeyPointsRaw(modelImage, null);
-//		Matrix<Byte> modelDescriptors = descriptor.ComputeDescriptorsRaw(modelImage, null, modelKeyPoints);
-//
-//		// extract features from the observed image
-//		observedKeyPoints = fastCPU.DetectKeyPointsRaw(observedImage, null);
-//		Matrix<Byte> observedDescriptors = descriptor.ComputeDescriptorsRaw(observedImage, null, observedKeyPoints);
-//		BruteForceMatcher<Byte> matcher = new BruteForceMatcher<Byte>(DistanceType.L2);
-//		matcher.Add(modelDescriptors);
-//
-//		indices = new Matrix<int>(observedDescriptors.Rows, k);
-//		using (Matrix<float> dist = new Matrix<float>(observedDescriptors.Rows, k))
-//		{
-//			matcher.KnnMatch(observedDescriptors, indices, dist, k, null);
-//			mask = new Matrix<byte>(dist.Rows, 1);
-//			mask.SetValue(255);
-//			Features2DToolbox.VoteForUniqueness(dist, uniquenessThreshold, mask);
-//		}
-//
-//		int nonZeroCount = CvInvoke.cvCountNonZero(mask);
-//		if (nonZeroCount >= 4)
-//		{
-//			nonZeroCount = Features2DToolbox.VoteForSizeAndOrientation(modelKeyPoints, observedKeyPoints, indices, mask, 1.5, 20);
-//			if (nonZeroCount >= 4)
-//				homography = Features2DToolbox.GetHomographyMatrixFromMatchedFeatures(
-//					modelKeyPoints, observedKeyPoints, indices, mask, 2);
-//		}
-//
-//		//Draw the matched keypoints
-//		Image<Bgr, Byte> result = Features2DToolbox.DrawMatches(modelImage, modelKeyPoints, observedImage, observedKeyPoints,
-//			indices, new Bgr(255, 255, 255), new Bgr(255, 255, 255), mask, Features2DToolbox.KeypointDrawType.DEFAULT);
-//
-//		#region draw the projected region on the image
-//		if (homography != null)
-//		{  //draw a rectangle along the projected model
-//			Rectangle rect = modelImage.ROI;
-//			PointF[] pts = new PointF[] { 
-//				new PointF(rect.Left, rect.Bottom),
-//				new PointF(rect.Right, rect.Bottom),
-//				new PointF(rect.Right, rect.Top),
-//				new PointF(rect.Left, rect.Top)};
-//			homography.ProjectPoints(pts);
-//
-//			result.DrawPolyline(Array.ConvertAll<PointF, Point>(pts, Point.Round), true, new Bgr(Color.Red), 5);
-//		}
-//		#endregion
-//
-//		return result;
-//	}
+
 }
 

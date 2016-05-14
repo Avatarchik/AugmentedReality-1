@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using UnityEngine.UI;
 public class WebCamera : MonoBehaviour {
-
+	public RawImage rawImage;
 	// Use this for initialization
 	void Start () {
-		WebCamTexture webcamTexture = new WebCamTexture();
-		GetComponent<Renderer>().material.mainTexture = webcamTexture;
-		webcamTexture.Play();
+//		WebCamDevice[] devices = WebCamTexture.devices;
+//		WebCamDevice usbcam = devices[0];
+//		Debug.Log(usbcam.name);
+//		WebCamTexture webcamTexture = new WebCamTexture(usbcam.name);
+//		rawImage.texture = webcamTexture;
+//		webcamTexture.Play();
 
 	}
 	//# region texture2image 
@@ -38,15 +42,15 @@ public class WebCamera : MonoBehaviour {
     //#region Texture2Image 
     public System.Drawing.Image Texture2Image()
     {
-        Texture2D texture = GetComponent<Renderer>().material.mainTexture as Texture2D;
+		Texture2D texture = rawImage.texture as Texture2D;
         //Texture2D bla = (xxx.GetTexture() as Texture2D)
         if (texture == null)
         {
             return null;
         }
         //Save the texture to the stream.
-        
-        byte[] bytes = texture.EncodeToPNG();
+
+		byte[] bytes = texture.EncodeToPNG();
 
         //Memory stream to store the bitmap data.
         MemoryStream ms = new MemoryStream(bytes);
@@ -55,7 +59,10 @@ public class WebCamera : MonoBehaviour {
         ms.Seek(0, SeekOrigin.Begin);
 
         //Create an image from a stream.
-        System.Drawing.Image bmp2 = System.Drawing.Bitmap.FromStream(ms);
+
+		System.Drawing.Image bmp2 = System.Drawing.Image.FromStream(ms);
+
+        //System.Drawing.Image bmp2 = System.Drawing.Bitmap.FromStream(ms);
 
         //Close the stream, we nolonger need it.
         ms.Close();
